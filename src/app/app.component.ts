@@ -11,9 +11,17 @@ export class AppComponent {
 
   constructor(private router: Router) {}
 
+  canCreateUsers(): boolean {
+    return !!localStorage
+      .getItem('authorization')
+      ?.includes('can_create_users');
+  }
+  canReadUsers(): boolean {
+    return !!localStorage.getItem('authorization')?.includes('can_read_users');
+  }
+
   isLoggedIn(): boolean {
     const jwtToken = localStorage.getItem('jwt');
-    console.log(!!jwtToken);
     return !!jwtToken;
   }
 

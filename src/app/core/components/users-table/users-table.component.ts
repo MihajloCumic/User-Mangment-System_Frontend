@@ -72,4 +72,16 @@ export class UsersTableComponent implements OnInit {
     alert(`Deleted user: ${email}.`);
     this.getUsersPageable();
   }
+
+  canDeleteUsers(): boolean {
+    return !!localStorage
+      .getItem('authorization')
+      ?.includes('can_delete_users');
+  }
+
+  canUpdateUser(): boolean {
+    return !!localStorage
+      .getItem('authorization')
+      ?.includes('can_update_users');
+  }
 }

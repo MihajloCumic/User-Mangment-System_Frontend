@@ -22,18 +22,20 @@
       <th scope="col">can_create_users</th>
       <th scope="col">can_update_users</th>
       <th scope="col">can_delete_users</th>
-      <th scope="col"></th>
+      <th *ngIf="canDeleteUsers()" scope="col"></th>
     </tr>
   </thead>
   <tbody class="table-light">
     <tr *ngFor="let user of users; let i = index">
       <td>
         <a
+          *ngIf="canDeleteUsers()"
           (click)="emailHandler($event, user.email)"
           class="nav-link"
           href="#"
           >{{ user.email }}</a
         >
+        <a *ngIf="!canUpdateUser()" class="nav-link">{{ user.email }}</a>
       </td>
       <td>{{ user.firstName }}</td>
       <td>{{ user.lastName }}</td>
@@ -77,7 +79,7 @@
           class="bi bi-x-circle text-danger"
         ></i>
       </td>
-      <td class="text-center">
+      <td *ngIf="canDeleteUsers()" class="text-center">
         <button
           (click)="deleteUser(user.email, i)"
           type="button"
