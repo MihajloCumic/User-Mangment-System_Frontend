@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from '../models/User';
+import { User, UserCreate } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +32,16 @@ export class UserService {
         pageNumber,
         pageSize,
       },
+    });
+  }
+
+  createUser(user: UserCreate): Observable<User> {
+    let headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('jwt'),
+    });
+    return this.httpClient.post<User>(this.usersUrl, user, {
+      headers,
     });
   }
 }
