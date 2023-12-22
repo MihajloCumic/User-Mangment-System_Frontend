@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -9,10 +10,14 @@ import { LoginService } from 'src/app/services/login.service';
 export class LoginPageComponent {
   public email: string = '';
   public password: string = '';
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private router: Router) {}
   login(): void {
-    this.loginService
-      .login(this.email, this.password)
-      .subscribe((res) => console.log(res));
+    this.loginService.login(this.email, this.password).subscribe(
+      (res) => {
+        localStorage.setItem('jwt', res.jwt);
+        this.router.navigate(['/users']);
+      },
+      (err) => alert('Bad credentials.')
+    );
   }
 }

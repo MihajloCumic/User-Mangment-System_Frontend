@@ -1,3 +1,3 @@
-export class JWTModel {
-  constructor(public jwt: string) {}
+export interface JWTRes {
+  jwt: string;
 }

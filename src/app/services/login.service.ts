@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { JWTModel } from '../models/JWTModel';
+import { JWTRes } from '../models/JWTModel';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
@@ -10,8 +10,8 @@ export class LoginService {
 
   constructor(private httpClient: HttpClient) {}
 
-  login(email: string, password: string): Observable<any> {
+  login(email: string, password: string): Observable<JWTRes> {
     let body = { email, password };
-    return this.httpClient.post<any>(this.loginUrl, body);
+    return this.httpClient.post<JWTRes>(this.loginUrl, body);
   }
 }
