@@ -2,14 +2,14 @@
   class="container d-flex justify-content-center border-top border-bottom border-primary"
 >
   <form>
-    <div class="mb-3 row">
+    <div *ngIf="updateEmail" class="mb-3 row">
       <label for="staticEmail2" class="visually-hidden">Email</label>
       <input
         type="text"
         readonly
         class="form-control-plaintext"
         id="staticEmail2"
-        value="email@example.com"
+        value="{{ updateEmail }}"
       />
     </div>
     <div class="mb-3 row">
@@ -21,6 +21,8 @@
         class="form-control"
         id="exampleFormControlInput1"
         placeholder=""
+        [(ngModel)]="firstName"
+        name="firstName"
       />
     </div>
     <div class="mb-3 row">
@@ -30,6 +32,8 @@
         class="form-control"
         id="exampleFormControlInput4"
         placeholder=""
+        [(ngModel)]="lastName"
+        name="lastName"
       />
     </div>
     <div class="mb-3 row">
@@ -41,6 +45,8 @@
         class="form-control"
         id="exampleFormControlInput2"
         placeholder="name@example.com"
+        [(ngModel)]="email"
+        name="email"
       />
     </div>
     <div class="mb-3 row">
@@ -50,10 +56,33 @@
         class="form-control"
         id="inputPassword3"
         placeholder="Password"
+        [(ngModel)]="password"
+        name="password"
       />
     </div>
-    <div class="mb-3 row">
-      <button type="submit" class="btn btn-primary mb-3">{{ formType }}</button>
+    <div
+      class="form-check form-check-inline mb-3"
+      *ngFor="let privilege of allPrivileges"
+    >
+      <input
+        class="form-check-input"
+        type="checkbox"
+        [id]="privilege"
+        [checked]="selectedPrivileges[privilege]"
+        (change)="onCheckboxChange(privilege)"
+        name="{{ privilege }}"
+      />
+      <label class="form-check-label" [for]="privilege">{{ privilege }}</label>
+    </div>
+    <div *ngIf="formType === 'Create'" class="mb-3 row">
+      <button (click)="createUser()" type="submit" class="btn btn-primary mb-3">
+        {{ formType }}
+      </button>
+    </div>
+    <div *ngIf="formType === 'Update'" class="mb-3 row">
+      <button (click)="updateUser()" type="submit" class="btn btn-primary mb-3">
+        {{ formType }}
+      </button>
     </div>
   </form>
 </div>

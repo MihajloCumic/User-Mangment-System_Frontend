@@ -6,6 +6,7 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
 import { UserFormComponent } from './components/user-form/user-form.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { FormsModule } from '@angular/forms';
+import { UpdateUserComponent } from './components/update-user/update-user.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { FormsModule } from '@angular/forms';
     CreateUserComponent,
     UserFormComponent,
     LoginPageComponent,
+    UpdateUserComponent,
   ],
   exports: [
     UsersPageComponent,
@@ -21,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     CreateUserComponent,
     UserFormComponent,
     LoginPageComponent,
+    UpdateUserComponent,
   ],
   imports: [CommonModule, FormsModule],
 })

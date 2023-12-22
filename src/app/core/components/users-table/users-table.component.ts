@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,11 +12,10 @@ export class UsersTableComponent implements OnInit {
   public users: User[] = [];
   public pageNumber = 0;
   public pageSize = 10;
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     this.getUsersPageable();
-    console.log('oninit');
   }
   getUsersPageable(): void {
     this.userService.getUsersPageable(this.pageNumber, this.pageSize).subscribe(
@@ -40,13 +40,36 @@ export class UsersTableComponent implements OnInit {
     event.preventDefault();
     this.pageNumber += 1;
     this.getUsersPageable();
-    console.log(this.users);
   }
 
   previousPage(event: Event): void {
     event.preventDefault();
     if (this.pageNumber === 0) return;
     this.pageNumber -= 1;
+    this.getUsersPageable();
+  }
+
+  emailHandler(event: Event, email: string): void {
+    event.preventDefault();
+    this.userService.getUserByEmail(email).subscribe(
+      (res) => this.routeToUpdateUser(email),
+      (err) => console.log(err)
+    );
+  }
+
+  routeToUpdateUser(email: string): void {
+    this.router.navigate(['/update', email]);
+  }
+
+  deleteUser(email: string, i: number): void {
+    this.userService.deleteUser(email).subscribe(
+      (res) => this.successfullyDeletedUser(email, i),
+      (err) => alert(`Could not delete user: ${email}.`)
+    );
+  }
+
+  successfullyDeletedUser(email: string, i: number): void {
+    alert(`Deleted user: ${email}.`);
     this.getUsersPageable();
   }
 }

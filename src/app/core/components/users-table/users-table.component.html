@@ -22,11 +22,19 @@
       <th scope="col">can_create_users</th>
       <th scope="col">can_update_users</th>
       <th scope="col">can_delete_users</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody class="table-light">
-    <tr *ngFor="let user of users">
-      <td>{{ user.email }}</td>
+    <tr *ngFor="let user of users; let i = index">
+      <td>
+        <a
+          (click)="emailHandler($event, user.email)"
+          class="nav-link"
+          href="#"
+          >{{ user.email }}</a
+        >
+      </td>
       <td>{{ user.firstName }}</td>
       <td>{{ user.lastName }}</td>
       <td class="text-center">
@@ -68,6 +76,15 @@
           *ngIf="!hasPrivilege(user, 'can_delete_users')"
           class="bi bi-x-circle text-danger"
         ></i>
+      </td>
+      <td class="text-center">
+        <button
+          (click)="deleteUser(user.email, i)"
+          type="button"
+          class="btn btn-danger mb-3"
+        >
+          Delete
+        </button>
       </td>
     </tr>
   </tbody>
