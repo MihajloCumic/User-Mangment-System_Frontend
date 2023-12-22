@@ -1,21 +1,12 @@
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+      <a (click)="previousPage($event)" class="page-link" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
     <li class="page-item">
-      <a class="page-link" href="#">{{ pagginationNumValue }}</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">{{ pagginationNumValue + 1 }}</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">{{ pagginationNumValue + 2 }}</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
+      <a (click)="nextPage($event)" class="page-link" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
@@ -24,51 +15,72 @@
 <table class="table table-primary table-hover">
   <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">First</th>
-      <th scope="col">Last</th>
-      <th scope="col">Handle</th>
+      <th scope="col">Email</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">can_read_users</th>
+      <th scope="col">can_create_users</th>
+      <th scope="col">can_update_users</th>
+      <th scope="col">can_delete_users</th>
     </tr>
   </thead>
   <tbody class="table-light">
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the bird</td>
-      <td>twitter</td>
+    <tr *ngFor="let user of users">
+      <td>{{ user.email }}</td>
+      <td>{{ user.firstName }}</td>
+      <td>{{ user.lastName }}</td>
+      <td class="text-center">
+        <i
+          *ngIf="hasPrivilege(user, 'can_read_users')"
+          class="bi bi-check-circle text-success"
+        ></i>
+        <i
+          *ngIf="!hasPrivilege(user, 'can_read_users')"
+          class="bi bi-x-circle text-danger"
+        ></i>
+      </td>
+      <td class="text-center">
+        <i
+          *ngIf="hasPrivilege(user, 'can_create_users')"
+          class="bi bi-check-circle text-success"
+        ></i>
+        <i
+          *ngIf="!hasPrivilege(user, 'can_create_users')"
+          class="bi bi-x-circle text-danger"
+        ></i>
+      </td>
+      <td class="text-center">
+        <i
+          *ngIf="hasPrivilege(user, 'can_update_users')"
+          class="bi bi-check-circle text-success"
+        ></i>
+        <i
+          *ngIf="!hasPrivilege(user, 'can_update_users')"
+          class="bi bi-x-circle text-danger"
+        ></i>
+      </td>
+      <td class="text-center">
+        <i
+          *ngIf="hasPrivilege(user, 'can_delete_users')"
+          class="bi bi-check-circle text-success"
+        ></i>
+        <i
+          *ngIf="!hasPrivilege(user, 'can_delete_users')"
+          class="bi bi-x-circle text-danger"
+        ></i>
+      </td>
     </tr>
   </tbody>
 </table>
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item">
-      <a class="page-link" href="#" aria-label="Previous">
+      <a (click)="previousPage($event)" class="page-link" aria-label="Previous">
         <span aria-hidden="true">&laquo;</span>
       </a>
     </li>
     <li class="page-item">
-      <a class="page-link" href="#">{{ pagginationNumValue }}</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">{{ pagginationNumValue + 1 }}</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#">{{ pagginationNumValue + 2 }}</a>
-    </li>
-    <li class="page-item">
-      <a class="page-link" href="#" aria-label="Next">
+      <a (click)="nextPage($event)" class="page-link" aria-label="Next">
         <span aria-hidden="true">&raquo;</span>
       </a>
     </li>
